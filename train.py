@@ -1,9 +1,9 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+
 drug_df = pd.read_csv("Data/drug.csv")
 drug_df = drug_df.sample(frac=1)
 print(drug_df.head(3))
-
 
 
 X = drug_df.drop("Drug", axis=1).values
@@ -20,8 +20,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 
-cat_col = [1,2,3]
-num_col = [0,4]
+cat_col = [1, 2, 3]
+num_col = [0, 4]
 
 transform = ColumnTransformer(
     [
@@ -48,10 +48,8 @@ f1 = f1_score(y_test, predictions, average="macro")
 print("Accuracy:", str(round(accuracy, 2) * 100) + "%", "F1:", round(f1, 2))
 
 
-
 with open("./Results/metrics.txt", "w") as outfile:
     outfile.write(f"\nAccuracy = {round(accuracy, 2)}, F1 Score = {round(f1, 2)}")
-
 
 
 import matplotlib.pyplot as plt
@@ -61,7 +59,6 @@ cm = confusion_matrix(y_test, predictions, labels=pipe.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=pipe.classes_)
 disp.plot()
 plt.savefig("Results/model_results.png", dpi=120)
-
 
 
 import skops.io as sio
