@@ -14,16 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install Hugging Face CLI
-        run: |
-          pip install -U "huggingface_hub[cli]"
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Deploy to Hugging Face
+      - name: Push to Hugging Face via Git
         env:
-          HF: ${{ secrets.HF }}
-        run: make deploy HF=$HF
+          HF_TOKEN: ${{ secrets.HF }}
+        run: |
+          git clone https://DANISHFAYAZNAJAR:${HF_TOKEN}@huggingface.co/spaces/DANISHFAYAZNAJAR/drug-classification
+          cd drug-classification
+          cp -r ../App ./App
+          cp -r ../Model ./Model
+          cp -r ../Results ./Metrics
+          git add .
+          git commit -m "Sync all files"
+          git push
