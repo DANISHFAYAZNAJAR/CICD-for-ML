@@ -8,22 +8,22 @@ on:
 
   workflow_dispatch: 
 
-
-jobs: 
-  build: 
-    runs-on: ubuntu-latest 
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 
-
+      - uses: actions/checkout@v3
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - run: pip install -U "huggingface_hub[cli]"
-      - name : Deployment to Hugging Face 
-        env: 
+      - name: Install Hugging Face CLI
+        run: |
+          pip install -U "huggingface_hub[cli]"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Deploy to Hugging Face
+        env:
           HF: ${{ secrets.HF }}
-
-
-        run : make deploy HF=$HF 
+        run: make deploy HF=$HF
