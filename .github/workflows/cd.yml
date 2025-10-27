@@ -44,7 +44,6 @@ jobs:
           cp -r ../Model ./Model
           cp -r ../Results ./Metrics
 
-          # Commit & push
           git add .
           git commit -m "Sync App, Model, and Metrics"
           git push
