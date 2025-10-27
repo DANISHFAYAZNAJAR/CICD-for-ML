@@ -40,7 +40,6 @@ jobs:
           git add .gitattributes
 
           # Copy new files
-          cp -r ../App ./App
           cp -r ../App/drug_app.py ./app.py
           cp -r ../Model ./Model
           cp -r ../Results ./Metrics
