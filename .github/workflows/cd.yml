@@ -18,11 +18,16 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF }}
         run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions Bot"
+
           git clone https://DANISHFAYAZNAJAR:${HF_TOKEN}@huggingface.co/spaces/DANISHFAYAZNAJAR/drug-classification
           cd drug-classification
+
           cp -r ../App ./App
           cp -r ../Model ./Model
           cp -r ../Results ./Metrics
+
           git add .
           git commit -m "Sync all files"
           git push
